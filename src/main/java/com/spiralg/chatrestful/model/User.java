@@ -1,6 +1,6 @@
 package com.spiralg.chatrestful.model;
 
-public class Users {
+public class User {
 
     private int id;
 
@@ -8,10 +8,10 @@ public class Users {
 
     private byte status;
 
-    public Users(){
+    public User(){
     }
 
-    public Users(int id, String user_name, byte status) {
+    public User(int id, String user_name, byte status) {
         this.id = id;
         this.user_name = user_name;
         this.status = status;
@@ -43,7 +43,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", user_name='" + user_name + '\'' +
                 ", status=" + status +

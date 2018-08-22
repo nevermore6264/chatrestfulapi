@@ -1,18 +1,17 @@
 package com.spiralg.chatrestful.service;
 
-import com.spiralg.chatrestful.model.Users;
-import org.springframework.stereotype.Service;
+import com.spiralg.chatrestful.model.User;
 
 import java.util.List;
 
 public interface UserService {
 
-//    public boolean save(Users users);
-//
-//    public Users findById(int id);
-//
-//    Users findByUsername(String userName);
+    boolean save(User user);
 
-    List<Users> findAllByName(String name);
+//    public User findById(int id);
+
+    String findByName(String userName);
+
+    List<User> findAllByName(String name);
 
 }
