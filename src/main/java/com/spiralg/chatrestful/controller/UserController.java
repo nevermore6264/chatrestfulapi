@@ -22,23 +22,21 @@ public class UserController {
     @Autowired
     private UserService userService;
     private Gson gson = new Gson();
-    private static String pattern1 = "\\d{4}-\\d{1,2}-\\d{1,2}";
-    private static String pattern2 = "\\d{4}";
     Pattern pattern = Pattern.compile("^[a-zA-Z]{1,50}$");
 
-    @PostMapping(value = {""})
+    @PostMapping
     public ResponseEntity<String> save(@RequestBody String jsonUser) {
         User user = gson.fromJson(jsonUser, User.class);
-        System.out.println(user.getUser_name());
-        if (user.getUser_name() != null) {
-            Matcher matcher = pattern.matcher(user.getUser_name());
+        System.out.println(user.getUserName());
+        if (user.getUserName() != null) {
+            Matcher matcher = pattern.matcher(user.getUserName());
             if (!matcher.matches()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            if (user.getUser_name().trim().equals("")) {
+            if (user.getUserName().trim().equals("")) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            if (userService.findByName(user.getUser_name()) == null) {
+            if (userService.findByName(user.getUserName()) == null) {
                 userService.save(user);
                 return new ResponseEntity<>("Create success", HttpStatus.CREATED);
             } else
@@ -48,9 +46,8 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = {""})
+    @GetMapping
     public ResponseEntity<List<User>> getAllUserByName(@RequestParam("username") String name) {
-        System.out.println("da den day roi");
         Matcher matcher = pattern.matcher(name);
         if (matcher.matches()) {
             List<User> users = userService.findAllByName(name.trim());
@@ -63,23 +60,4 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-    //    @GetMapping(value = {"/{id}/messages/{date}"})
-//    public ResponseEntity<List<Message>> getAllByDay(@PathVariable("id") int id, @PathVariable("date") String date) {
-//
-//        List<Message> messages = null;
-//        if (!date.matches(pattern1)) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        } else {
-//            if (userService.findById(id) == null) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
-//            messages = messageService.getAllByDay(id, date);
-//            if (messages.size() == 0)
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//        return new ResponseEntity<>(messages, HttpStatus.OK);
-//
-//    }
-
 }
