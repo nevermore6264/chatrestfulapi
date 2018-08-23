@@ -2,7 +2,8 @@ package com.spiralg.chatrestful.service;
 
 import com.spiralg.chatrestful.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public List<Message> getAll(String sender, String receiver, String time){
@@ -25,8 +26,12 @@ public class MessageServiceImpl implements MessageService {
             String sql = "SELECT messages.id, content,create_date,a.user_name AS sender,b.user_name AS receiver " +
                     "FROM messages JOIN users a ON messages.sender_id = a.id " +
                     "JOIN users b ON messages.receiver_id = b.id " +
-                    "WHERE a.user_name = ifnull(?, a.user_name) AND b.user_name = ifnull(?, b.user_name)  AND create_date LIKE ?";
-            List<Message> messages = jdbcTemplate.query(sql, new String[]{"%" + sender + "%", "%" + receiver + "%", "%" + time + "%"}, new RowMapper<Message>() {
+                    "WHERE a.user_name = ifnull(:sender, a.user_name) AND b.user_name = ifnull(:receiver, b.user_name)  AND create_date LIKE :time";
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue("sender", "%" + sender + "%");
+            params.addValue("receiver", "%" + receiver + "%");
+            params.addValue("time" ,"%" + time + "%");
+            List<Message> messages = jdbcTemplate.query(sql, params, new RowMapper<Message>() {
                @Override
                 public Message mapRow(ResultSet rs, int rowNum) throws SQLException{
                    Message message = new Message();
@@ -46,12 +51,15 @@ public class MessageServiceImpl implements MessageService {
 
 //    @Override
 //    public List<Message> getAllById(int id){
+//        List<Message> messages = new LinkedList<>();
 //        try{
 //            String sql = "SELECT messages.content,create_date,a.user_name AS sender,b.user_name AS receiver " +
 //                    "FROM messages JOIN users a ON messages.sender_id = a.id " +
 //                    "JOIN users b ON messages.receiver_id = b.id " +
-//                    "WHERE a.id = ?";
-//            List<Message> messages = jdbcTemplate.query(sql, new int[]{id}, new RowMapper<Message>(){
+//                    "WHERE a.id = :id";
+//            MapSqlParameterSource params = new MapSqlParameterSource();
+//            params.addValue("id", id);
+//            messages = jdbcTemplate.query(sql, params, new RowMapper<Message>(){
 //                @Override
 //                public Message mapRow(ResultSet rs, int rowNum) throws SQLException{
 //                    Message message = new Message();
@@ -61,9 +69,10 @@ public class MessageServiceImpl implements MessageService {
 //                    message.setTime(rs.getString("time"));
 //                    return message;
 //                }
-//            } )
+//            } );
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
+//        return messages;
 //    }
 }
