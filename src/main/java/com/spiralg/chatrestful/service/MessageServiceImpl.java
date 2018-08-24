@@ -35,6 +35,7 @@ public class MessageServiceImpl implements MessageService {
                 public Message mapRow(ResultSet rs, int rowNum) throws SQLException{
                    Message message = new Message();
                    message.setId(rs.getInt("id"));
+                   message.setMessage( rs.getString( "content" ) );
                    message.setSender(rs.getString("sender"));
                    message.setReceiver(rs.getString("receiver"));
                    message.setTime(rs.getString("create_date"));
