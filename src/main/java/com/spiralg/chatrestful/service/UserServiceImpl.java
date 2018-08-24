@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         try {
             String sql = "SELECT user_name FROM users WHERE user_name = :userName";
             MapSqlParameterSource parameters = new MapSqlParameterSource();
-            parameters.addValue( "username", userName );
+            parameters.addValue( "userName", userName );
             User name = jdbcTemplate.queryForObject( sql, parameters, new RowMapper<User>() {
                 @Override
                 public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
             return name;
         } catch (Exception e) {
             e.printStackTrace();
-            return new User();
+            return null;
         }
     }
 }

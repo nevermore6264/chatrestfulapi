@@ -30,14 +30,14 @@ public class MessageController {
         this.userService = userService;
     }
 
-    @GetMapping(value = {""})
-    public ResponseEntity<List<Message>> getAll(@RequestParam("sender") String sender, @RequestParam("receiver") String receiver, @RequestParam("date") String date){
+    @GetMapping
+    public ResponseEntity<List<Message>> getAll(@RequestParam("sender") String sender, @RequestParam("receiver") String receiver, @RequestParam("date") String create_date){
         User senderUser = userService.findByName(sender);
         User receiverUser = userService.findByName(receiver);
 
         if (sender.trim().equals("") || receiver.trim().equals("") || senderUser != null || receiverUser != null){
-            if (date.matches(pattern) || date.matches(pattern)){
-                List<Message> messages = messageService.getAll(sender, receiver,date);
+            if (create_date.matches(pattern)){
+                List<Message> messages = messageService.getAll(sender, receiver,create_date);
                 return new ResponseEntity<>( messages, HttpStatus.OK);
             }else {
                 return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
@@ -46,9 +46,18 @@ public class MessageController {
             if (senderUser == null || receiverUser == null){
                 return new ResponseEntity<>( HttpStatus.NOT_FOUND );
             }else{
-                List<Message> messages = messageService.getAll( sender, receiver, date );
+                List<Message> messages = messageService.getAll( sender, receiver, create_date );
                 return new ResponseEntity<>( messages, HttpStatus.OK );
             }
         }
+    }
+
+    @GetMapping(value = {"/date"})
+    public ResponseEntity<List<Message>> getAllByDate(@RequestParam("date") String date){
+        if (date.matches( pattern )){
+            List<Message> messages = messageService.getAllByDay( date );
+            return new ResponseEntity<>( messages, HttpStatus.OK );
+        }
+        return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
     }
 }
