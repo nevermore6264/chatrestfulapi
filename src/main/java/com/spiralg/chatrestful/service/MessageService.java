@@ -8,7 +8,5 @@ public interface MessageService {
 
     List<Message> getAll(String sender, String receiver, String date);
 
-    List<Message> getAllByDay(String date);
-
-//    List<Message> getAllById(int id);
+    List<Message> getAllByDay(String create_date);
 }

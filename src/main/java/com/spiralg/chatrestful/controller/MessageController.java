@@ -31,7 +31,7 @@ public class MessageController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Message>> getAll(@RequestParam("sender") String sender, @RequestParam("receiver") String receiver, @RequestParam("date") String create_date){
+    public ResponseEntity<List<Message>> getAll(@RequestParam(value = "sender", defaultValue = "", required = false) String sender, @RequestParam(value = "receiver", defaultValue = "", required = false) String receiver, @RequestParam(value = "date", defaultValue = "", required = false) String create_date){
         User senderUser = userService.findByName(sender);
         User receiverUser = userService.findByName(receiver);
 
@@ -53,9 +53,9 @@ public class MessageController {
     }
 
     @GetMapping(value = {"/date"})
-    public ResponseEntity<List<Message>> getAllByDate(@RequestParam("date") String date){
-        if (date.matches( pattern )){
-            List<Message> messages = messageService.getAllByDay( date );
+    public ResponseEntity<List<Message>> getAllByDate(@RequestParam("date") String create_date){
+        if (create_date.matches( pattern )){
+            List<Message> messages = messageService.getAllByDay( create_date );
             return new ResponseEntity<>( messages, HttpStatus.OK );
         }
         return new ResponseEntity<>( HttpStatus.BAD_REQUEST );

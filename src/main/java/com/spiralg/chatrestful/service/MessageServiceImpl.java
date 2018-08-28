@@ -39,7 +39,6 @@ public class MessageServiceImpl implements MessageService {
                    message.setSender(rs.getString("sender"));
                    message.setReceiver(rs.getString("receiver"));
                    message.setTime(rs.getString("create_date"));
-                   System.out.println(message.toString());
                    System.out.println(rs.getString("receiver"));
                    return message;
                }
@@ -52,14 +51,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getAllByDay(String date){
+    public List<Message> getAllByDay(String create_date){
         try{
             String sql = "SELECT messages.id, content,create_date,a.user_name AS sender,b.user_name AS receiver " +
                     "FROM messages JOIN users a ON messages.sender_id = a.id " +
                     "JOIN users b ON messages.receiver_id = b.id " +
-                    "WHERE create_date LIKE :time";
+                    "WHERE create_date LIKE :create_date";
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-            parameterSource.addValue("time", "%" + date + "%");
+            parameterSource.addValue("create_date", "%" + create_date + "%");
             List<Message> messages = jdbcTemplate.query( sql, parameterSource, new RowMapper<Message>() {
                         @Override
                         public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -78,30 +77,4 @@ public class MessageServiceImpl implements MessageService {
         }
     }
 
-//    @Override
-//    public List<Message> getAllById(int id){
-//        List<Message> messages = new LinkedList<>();
-//        try{
-//            String sql = "SELECT messages.content,create_date,a.user_name AS sender,b.user_name AS receiver " +
-//                    "FROM messages JOIN users a ON messages.sender_id = a.id " +
-//                    "JOIN users b ON messages.receiver_id = b.id " +
-//                    "WHERE a.id = :id";
-//            MapSqlParameterSource params = new MapSqlParameterSource();
-//            params.addValue("id", id);
-//            messages = jdbcTemplate.query(sql, params, new RowMapper<Message>(){
-//                @Override
-//                public Message mapRow(ResultSet rs, int rowNum) throws SQLException{
-//                    Message message = new Message();
-//                    message.setMessage(rs.getString("message"));
-//                    message.setSender(rs.getString("sender"));
-//                    message.setReceiver(rs.getString("receiver"));
-//                    message.setTime(rs.getString("time"));
-//                    return message;
-//                }
-//            } );
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return messages;
-//    }
 }
