@@ -1,6 +1,7 @@
 package com.spiralg.chatrestful.controller;
 
 import com.google.gson.Gson;
+import com.spiralg.chatrestful.common.ItemUser;
 import com.spiralg.chatrestful.model.User;
 import com.spiralg.chatrestful.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,24 +48,8 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Object> getAllUserByName(@RequestParam(value = "username") String name) {
         List<User> users = userService.findAllByName( name.trim() );
-        return new ResponseEntity<Object>( new SearchUserResult( users.size(), users ), HttpStatus.OK );
+        return new ResponseEntity<Object>( new ItemUser( users.size(), users ), HttpStatus.OK );
     }
 
-    class SearchUserResult {
-        public SearchUserResult(int total, List<User> items) {
-            this.total = total;
-            this.items = items;
-        }
 
-        public int getTotal() {
-            return total;
-        }
-
-        public List<User> getItems() {
-            return items;
-        }
-
-        private int total;
-        private List<User> items;
-    }
 }

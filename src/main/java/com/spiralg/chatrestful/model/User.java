@@ -2,7 +2,7 @@ package com.spiralg.chatrestful.model;
 
 public class User {
 
-    private int id;
+    private Integer id;
 
     private String userName;
 
@@ -11,17 +11,17 @@ public class User {
     public User(){
     }
 
-    public User(int id, String userName, byte status) {
+    public User(Integer id, String userName, byte status) {
         this.id = id;
         this.userName = userName;
         this.status = status;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

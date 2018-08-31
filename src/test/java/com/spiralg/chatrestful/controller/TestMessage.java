@@ -130,7 +130,7 @@ public class TestMessage {
     }
 
     @Test
-    public void getMessageWithWrongFomatDate() throws Exception {
+    public void getMessageWithWrongFormatDate() throws Exception {
         List<Message> messages = new ArrayList<>();
 
         given( messageService.getAllByDay( "08-08-2018" ) ).willReturn( messages );
