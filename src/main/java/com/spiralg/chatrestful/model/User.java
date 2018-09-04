@@ -6,15 +6,12 @@ public class User {
 
     private String userName;
 
-    private byte status;
-
     public User(){
     }
 
-    public User(Integer id, String userName, byte status) {
+    public User(Integer id, String userName) {
         this.id = id;
         this.userName = userName;
-        this.status = status;
     }
 
     public Integer getId() {
@@ -33,20 +30,11 @@ public class User {
         this.userName = userName;
     }
 
-    public byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(byte status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", status=" + status +
                 '}';
     }
 }

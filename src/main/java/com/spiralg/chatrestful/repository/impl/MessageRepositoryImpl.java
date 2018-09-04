@@ -22,7 +22,7 @@ public class MessageRepositoryImpl implements MessageRepository {
     public boolean create(Message message) {
         String sql = "INSERT INTO messages(message, time, reciever, sender) VALUES(:message, :time, :reciever, :sender)";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("username", message.getMessage());
+        params.addValue("message", message.getMessage());
         params.addValue("time", message.getTime());
         params.addValue("reciever", message.getReceiver());
         params.addValue("sender", message.getSender());
@@ -52,6 +52,9 @@ public class MessageRepositoryImpl implements MessageRepository {
         if (!StringUtils.isEmpty(searchForm.getMessage())) {
             whereCondition.append(" content like :content");
             params.addValue("content", searchForm.getMessage());
+            params.addValue( "time", searchForm.getTime() );
+            params.addValue( "receiver", searchForm.getReceiver() );
+            params.addValue( "sender", searchForm.getSender() );
         }
 
         if (!StringUtils.isEmpty(searchForm.getSender())) {

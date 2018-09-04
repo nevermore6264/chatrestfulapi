@@ -17,6 +17,9 @@ public class MessageTransformer {
         view.setId(message.getId());
         view.setMessage(message.getMessage());
         // TODO
+        view.setTime( message.getTime() );
+        view.setReceiver( message.getReceiver() );
+        view.setSender( message.getSender() );
         return view;
     }
 
@@ -37,6 +40,8 @@ public class MessageTransformer {
         Message message = new Message();
         message.setMessage(form.getMessage());
         // TODO
+        message.setReceiver( form.getReceiver() );
+        message.setSender( form.getSender() );
         return message;
     }
 }

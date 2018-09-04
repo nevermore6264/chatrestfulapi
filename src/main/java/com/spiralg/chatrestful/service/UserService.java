@@ -1,14 +1,13 @@
 package com.spiralg.chatrestful.service;
 
 import com.spiralg.chatrestful.model.User;
+import com.spiralg.chatrestful.model.api.form.UserSearchForm;
 
 import java.util.List;
 
 public interface UserService {
 
-    boolean save(User user);
+    List<User> search(UserSearchForm searchForm);
 
-    List<User> findAllByName(String name);
-
-    User findByName(String userName);
+    boolean create(User user);
 }
