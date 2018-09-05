@@ -48,7 +48,7 @@ public class TestFindUser {
 
         List<User> users = new ArrayList<>();
         users.add( new User( 1, "dat", (byte) 0 ) );
-        given( userService.findAllByName( "dat" ) ).willReturn( users );
+        given( userService.search( "dat" ) ).willReturn( users );
 
         mockMvc.perform( get( "/api/users" ).param( "username", "dat" )
                 .contentType( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -60,7 +60,7 @@ public class TestFindUser {
     @Test
     public void findUserAndReturnNoRecord() throws Exception {
         List<User> users = new ArrayList<>();
-        given( userService.findAllByName( "khanhtx" ) ).willReturn( users );
+        given( userService.search( "khanhtx" ) ).willReturn( users );
 
         mockMvc.perform( get( "/api/users" ).param( "username", "khanhtx" )
                 .contentType( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -73,7 +73,7 @@ public class TestFindUser {
 
         List<User> users = new ArrayList<>();
         users.add( new User( 1, "datnt", (byte) 0 ) );
-        given( userService.findAllByName( "" ) ).willReturn( users );
+        given( userService.search( "" ) ).willReturn( users );
 
         mockMvc.perform( get( "/api/users" ).param( "username", " " )
                 .contentType( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -87,7 +87,7 @@ public class TestFindUser {
 
         List<User> users = new ArrayList<>();
         users.add( new User( 1, "datnt", (byte) 0 ) );
-        given( userService.findAllByName( "" ) ).willReturn( users );
+        given( userService.search( "" ) ).willReturn( users );
 
         mockMvc.perform( get( "/api/users" ).param( "username", "      " )
                 .contentType( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -100,7 +100,7 @@ public class TestFindUser {
     public void findUserWithSpecialCharacter() throws Exception {
 
         List<User> users = new ArrayList<>();
-        given( userService.findAllByName( "@#$" ) ).willReturn( users );
+        given( userService.search( "@#$" ) ).willReturn( users );
 
         mockMvc.perform( get( "/api/users" ).param( "username", "@#$" )
                 .contentType( MediaType.APPLICATION_JSON_UTF8 ) )

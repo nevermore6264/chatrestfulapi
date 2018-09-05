@@ -11,4 +11,5 @@ public interface UserRepository {
     void delete(Integer id);
     List<User> search(UserSearchForm searchForm);
     List<User> getAll(UserSearchForm searchForm);
+    int findIdByUsername(String userName);
 }

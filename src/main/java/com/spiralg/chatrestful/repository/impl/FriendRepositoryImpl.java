@@ -4,6 +4,7 @@ import com.spiralg.chatrestful.model.Friend;
 import com.spiralg.chatrestful.model.api.form.FriendSearchForm;
 import com.spiralg.chatrestful.repository.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,9 +18,18 @@ public class FriendRepositoryImpl implements FriendRepository {
 
     @Override
     public boolean create(Friend friend) {
-        String sql = "INSERT INTO friends(user_id, user_friend_id) VALUES(:userId, :userFriendId)";
-
-        return false;
+        try {
+            System.out.println(FriendRepositoryImpl.class+" "+friend.toString());
+            String sql = "INSERT INTO friends(user_id, user_friend_id) VALUES(:userId, :userFriendId)";
+            MapSqlParameterSource params = new MapSqlParameterSource();
+            params.addValue("userId", friend.getUserId());
+            params.addValue("userFriendId", friend.getUserFriend());
+            jdbcTemplate.update(sql, params);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

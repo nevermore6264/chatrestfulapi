@@ -51,4 +51,17 @@ public class UserRepositoryImpl implements UserRepository {
         String sql = "SELECT user_name, id FROM users";
         return jdbcTemplate.query(sql, new UserRowMapper());
     }
+
+    @Override
+    public int findIdByUsername(String userName) {
+        try {
+            String sql = "SELECT users.id,user_name FROM users WHERE user_name = :userName";
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("userName", userName);
+            return jdbcTemplate.queryForObject(sql, parameters, new UserRowMapper()).getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

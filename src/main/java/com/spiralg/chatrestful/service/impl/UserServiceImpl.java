@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAll( searchForm );
     }
 
+    @Override
+    public int findIdByUsername(String userName) {
+        return userRepository.findIdByUsername( userName );
+    }
+
 }

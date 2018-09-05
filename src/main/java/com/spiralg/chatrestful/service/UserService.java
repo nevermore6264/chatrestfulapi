@@ -12,4 +12,6 @@ public interface UserService {
     boolean create(User user);
 
     List<User> getAll(UserSearchForm searchForm);
+
+    int findIdByUsername(String userName);
 }
