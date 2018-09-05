@@ -10,4 +10,5 @@ public interface UserRepository {
     User update(User user);
     void delete(Integer id);
     List<User> search(UserSearchForm searchForm);
+    List<User> getAll(UserSearchForm searchForm);
 }

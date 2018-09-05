@@ -20,39 +20,6 @@ import java.util.List;
 @RequestMapping(path = "/api/users")
 public class UserController {
 
-//    @Autowired
-//    private UserService userService;
-//    private Gson gson = new Gson();
-//    Pattern pattern = Pattern.compile( "^[a-zA-Z]{1,50}$" );
-//
-//    @PostMapping
-//    public ResponseEntity<String> save(@RequestBody String jsonUser) {
-//        User user = gson.fromJson( jsonUser, User.class );
-//        System.out.println( user.getUserName() );
-//        if (user.getUserName() != null) {
-//            Matcher matcher = pattern.matcher( user.getUserName() );
-//            if (!matcher.matches()) {
-//                return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-//            }
-//            if (user.getUserName().trim().equals( "" )) {
-//                return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-//            }
-//            if (userService.findByName( user.getUserName() ) == null) {
-//                userService.save( user );
-//                return new ResponseEntity<>( "Create success", HttpStatus.CREATED );
-//            } else
-//                return new ResponseEntity<>( HttpStatus.CONFLICT );
-//        } else {
-//            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-//        }
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<Object> getAllUserByName(@RequestParam(value = "username") String name) {
-//        List<User> users = userService.findAllByName( name.trim() );
-//        return new ResponseEntity<Object>( new ItemUser( users.size(), users ), HttpStatus.OK );
-//    }
-
     @Autowired
     private UserService userService;
 
@@ -74,4 +41,10 @@ public class UserController {
         userService.create( userTransformer.fromRequest( form ) );
         return null;
     }
+
+   @GetMapping("/get")
+    public ResponseEntity<ApiListResponse<UserView>> getAll(UserSearchForm searchForm){
+       List<User> list = userService.getAll( searchForm );
+       return ResponseEntity.ok( userTransformer.toListResponse( list ) );
+   }
 }

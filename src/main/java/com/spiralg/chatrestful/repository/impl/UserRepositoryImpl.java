@@ -45,4 +45,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         return jdbcTemplate.query( sql, params, new UserRowMapper());
     }
+
+    @Override
+    public List<User> getAll(UserSearchForm searchForm) {
+        String sql = "SELECT user_name, id FROM users";
+        return jdbcTemplate.query(sql, new UserRowMapper());
+    }
 }

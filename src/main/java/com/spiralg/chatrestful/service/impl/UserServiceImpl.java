@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.create( user );
     }
 
+    @Override
+    public List<User> getAll(UserSearchForm searchForm){
+        return userRepository.getAll( searchForm );
+    }
+
 }

@@ -10,4 +10,6 @@ public interface UserService {
     List<User> search(UserSearchForm searchForm);
 
     boolean create(User user);
+
+    List<User> getAll(UserSearchForm searchForm);
 }
