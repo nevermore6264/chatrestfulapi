@@ -8,6 +8,7 @@ public class UserView {
     }
 
     public UserView(int id, String userName) {
+
         this.id = id;
         this.userName = userName;
     }
