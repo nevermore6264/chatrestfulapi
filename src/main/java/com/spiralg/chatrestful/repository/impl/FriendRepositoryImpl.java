@@ -19,11 +19,11 @@ public class FriendRepositoryImpl implements FriendRepository {
     @Override
     public boolean create(Friend friend) {
         try {
-            System.out.println(FriendRepositoryImpl.class+" "+friend.toString());
-            String sql = "INSERT INTO friends(user_id, user_friend_id) VALUES(:userId, :userFriendId)";
+            String sql = "INSERT INTO friends(user_id, user_friend_id, status) VALUES(:userId, :userFriendId, :status)";
             MapSqlParameterSource params = new MapSqlParameterSource();
             params.addValue("userId", friend.getUserId());
             params.addValue("userFriendId", friend.getUserFriend());
+            params.addValue("status", friend.getStatus());
             jdbcTemplate.update(sql, params);
             return true;
         } catch (Exception e) {
