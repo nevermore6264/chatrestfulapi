@@ -5,6 +5,7 @@ import com.spiralg.chatrestful.model.api.form.UserSearchForm;
 import com.spiralg.chatrestful.repository.UserRepository;
 import com.spiralg.chatrestful.rowmapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean create(User user) {
         String sql = "INSERT INTO users(user_name) VALUES(:username)";
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue( "username", user.getUserName() );
-        int result = jdbcTemplate.update( sql,params );
+        params.addValue("username", user.getUserName());
+        int result = jdbcTemplate.update(sql, params);
         return result == 1;
     }
 
@@ -40,10 +41,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> search(UserSearchForm searchForm) {
         String sql = "SELECT user_name, id FROM users WHERE user_name LIKE :username";
-        MapSqlParameterSource params = new MapSqlParameterSource(  );
-        params.addValue( "username", "%"+searchForm.getUserName()+"%");
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("username", "%" + searchForm.getUserName() + "%");
 
-        return jdbcTemplate.query( sql, params, new UserRowMapper());
+        return jdbcTemplate.query(sql, params, new UserRowMapper());
     }
 
     @Override
@@ -62,6 +63,19 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    @Override
+    public User getById(int id) {
+        try {
+            String sql = "SELECT users.id,user_name FROM users WHERE id = :userId";
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("userId", id);
+            return jdbcTemplate.queryForObject(sql, parameters, new UserRowMapper());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
