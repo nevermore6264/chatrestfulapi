@@ -51,16 +51,11 @@ public class FriendController {
     @GetMapping(path = {"friends"})
     public ResponseEntity<List<User>> getAllFriend(@RequestParam("username") String userName) {
 
-//        if (userService.findByName(userName) == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
             if (pattern.matcher(userName).matches()) {
                 return new ResponseEntity<>(friendService.getAllFriend(userName), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-//        }
-//
     }
 
 }

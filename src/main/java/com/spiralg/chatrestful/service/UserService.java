@@ -14,4 +14,6 @@ public interface UserService {
     List<User> getAll(UserSearchForm searchForm);
 
     int findIdByUsername(String userName);
+
+    User getById(int id);
 }

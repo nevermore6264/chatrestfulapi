@@ -18,10 +18,10 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler({Exception.class})
-//    protected ResponseEntity<ApiError> handleException(RuntimeException ex, WebRequest request) {
-//        ApiError error = new ApiError();
-//        error.setMessage("Unknow error");
-//        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
-//    }
+    @ExceptionHandler({Exception.class})
+    protected ResponseEntity<ApiError> handleException(RuntimeException ex, WebRequest request) {
+        ApiError error = new ApiError();
+        error.setMessage("Unknow error");
+        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -12,4 +12,5 @@ public interface UserRepository {
     List<User> search(UserSearchForm searchForm);
     List<User> getAll(UserSearchForm searchForm);
     int findIdByUsername(String userName);
+    User getById(int id);
 }
