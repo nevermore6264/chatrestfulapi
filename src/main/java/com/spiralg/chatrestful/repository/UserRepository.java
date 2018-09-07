@@ -7,10 +7,16 @@ import java.util.List;
 
 public interface UserRepository {
     boolean create(User user);
+
     User update(User user);
+
     void delete(Integer id);
+
     List<User> search(UserSearchForm searchForm);
+
     List<User> getAll(UserSearchForm searchForm);
+
     int findIdByUsername(String userName);
+
     User getById(int id);
 }

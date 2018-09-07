@@ -17,7 +17,7 @@ public class InvitationRowMapper implements RowMapper {
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         InvitationView invitationView = new InvitationView();
         invitationView.setId( rs.getInt( "user_id" ) );
-        invitationView.setName(rs.getString( "user_name" ));
+        invitationView.setUserName(rs.getString( "user_name" ));
         return invitationView;
     }
 }

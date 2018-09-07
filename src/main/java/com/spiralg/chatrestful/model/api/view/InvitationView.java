@@ -2,7 +2,7 @@ package com.spiralg.chatrestful.model.api.view;
 
 public class InvitationView {
     private int id;
-    private String name;
+    private String userName;
 
     public InvitationView() {
     }
@@ -15,19 +15,20 @@ public class InvitationView {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
     public String toString() {
         return "InvitationView{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
+
 }
