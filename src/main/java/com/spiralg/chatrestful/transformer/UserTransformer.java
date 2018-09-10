@@ -3,6 +3,7 @@ package com.spiralg.chatrestful.transformer;
 import com.spiralg.chatrestful.model.User;
 import com.spiralg.chatrestful.model.api.form.UserForm;
 import com.spiralg.chatrestful.model.api.view.ApiListResponse;
+import com.spiralg.chatrestful.model.api.view.UserView;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

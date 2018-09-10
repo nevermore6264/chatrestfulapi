@@ -1,6 +1,7 @@
 package com.spiralg.chatrestful.service.impl;
 
 import com.spiralg.chatrestful.model.Friend;
+import com.spiralg.chatrestful.model.api.form.AcceptForm;
 import com.spiralg.chatrestful.model.api.form.InvitationForm;
 import com.spiralg.chatrestful.repository.InvitationRepository;
 import com.spiralg.chatrestful.service.InvitationService;
@@ -18,5 +19,10 @@ public class InvitationServiceImpl implements InvitationService {
     @Override
     public List<Friend> getAllInvitations(InvitationForm invitationForm) {
         return invitationRepository.getAllInvitations( invitationForm );
+    }
+
+    @Override
+    public int acceptInvitations(AcceptForm acceptForm) {
+        return invitationRepository.acceptInvitations( acceptForm );
     }
 }

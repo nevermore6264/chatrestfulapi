@@ -1,6 +1,7 @@
 package com.spiralg.chatrestful.repository.impl;
 
 import com.spiralg.chatrestful.model.Friend;
+import com.spiralg.chatrestful.model.api.form.AcceptForm;
 import com.spiralg.chatrestful.model.api.form.InvitationForm;
 import com.spiralg.chatrestful.repository.InvitationRepository;
 import com.spiralg.chatrestful.rowmapper.InvitationRowMapper;
@@ -23,5 +24,14 @@ public class InvitationRepositoryImpl implements InvitationRepository {
         MapSqlParameterSource params = new MapSqlParameterSource( );
         params.addValue( "userFriend",invitationForm.getUserFriend() );
         return jdbcTemplate.query( sql,params, new InvitationRowMapper() );
+    }
+
+    @Override
+    public int acceptInvitations(AcceptForm acceptForm) {
+        String sql = "UPDATE friends SET status = 1 WHERE user_id = :user_id AND user_friend_id = :user_friend_id";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue( "user_id", acceptForm.getUserId() );
+        params.addValue( "user_friend_id", acceptForm.getUserFriend() );
+        return jdbcTemplate.update( sql, params );
     }
 }

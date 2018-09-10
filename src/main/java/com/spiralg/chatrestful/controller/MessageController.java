@@ -1,26 +1,20 @@
 package com.spiralg.chatrestful.controller;
 
-import com.spiralg.chatrestful.common.ItemMessage;
 import com.spiralg.chatrestful.common.exception.TcpChatException;
 import com.spiralg.chatrestful.model.Message;
-import com.spiralg.chatrestful.model.User;
 import com.spiralg.chatrestful.model.api.form.MessageForm;
 import com.spiralg.chatrestful.model.api.form.MessageSearchForm;
 import com.spiralg.chatrestful.model.api.view.ApiListResponse;
 import com.spiralg.chatrestful.model.api.view.MessageView;
 import com.spiralg.chatrestful.service.MessageService;
-import com.spiralg.chatrestful.service.UserService;
 import com.spiralg.chatrestful.transformer.MessageTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/messages")
