@@ -42,8 +42,8 @@ public class InvitationController {
         System.out.println(token+"--"+t+"--"+friendForm.getUserFriend());
         if(token.getKey().equals(t)){
             AcceptForm acceptForm = new AcceptForm();
-            acceptForm.setUserId(id);
-            acceptForm.setUserFriend(userService.findIdByUsername(friendForm.getUserFriend()));
+            acceptForm.setUserId(userService.findIdByUsername(friendForm.getUserFriend()));
+            acceptForm.setUserFriend(id);
             invitationService.acceptInvitations( acceptForm );
         }
         return new ResponseEntity(HttpStatus.OK);
