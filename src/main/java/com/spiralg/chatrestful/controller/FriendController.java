@@ -29,7 +29,7 @@ public class FriendController {
     @Autowired
     private FriendService friendService;
 
-    Pattern pattern = Pattern.compile("^[a-zA-Z]{1,50}$");
+    Pattern pattern = Pattern.compile("^[a-z0-9_]+");
 
     @PostMapping(path = {"users/{id}/friends"})
     public ResponseEntity addFriend(@PathVariable("id") int id,@RequestBody FriendForm friendForm, HttpServletRequest request) throws Exception {
